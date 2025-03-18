@@ -1,10 +1,10 @@
 pipeline {
     agent any
     environment {
-        AWS_REGION = 'us-east-1' // Your AWS region
-        ECR_REPO = '881490104063.dkr.ecr.us-east-1.amazonaws.com/my_pvt_repo' // Your ECR repository URI
+        AWS_REGION = 'us-east-2' // Your AWS region
+        ECR_REPO = '149536470392.dkr.ecr.us-east-2.amazonaws.com/application/repo' // Your ECR repository URI
         IMAGE_TAG = "v${BUILD_NUMBER}" // Dynamic version based on build number
-        EKS_CLUSTER_NAME = 'vgs_cluster' // Replace with your EKS cluster name
+        EKS_CLUSTER_NAME = 'girish_cluster' // Replace with your EKS cluster name
         KUBECONFIG_PATH = '/opt/kube/config' // Path to kubeconfig file
         HELM_CHART_PATH = './Helm' // Path to your Helm chart
     }
@@ -12,7 +12,8 @@ pipeline {
         stage('SCM checkout') {
             steps {
                 script {
-                    git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/VenkatVGS/K8s_Real_Project.git'
+                    git branch: 'main',
+                        url: 'https://github.com/Girish5515/K8s_Real_Project'
                 }
             }
         }
@@ -49,7 +50,7 @@ pipeline {
                 script {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
-                        credentialsId: 'aws-crendentails-vgs' // Your Jenkins AWS credentials ID
+                        credentialsId: 'aws-crendentails-girish' // Your Jenkins AWS credentials ID
                     ]]) {
                         def fullImageName = "${ECR_REPO}:${IMAGE_TAG}"
                         
@@ -70,7 +71,7 @@ pipeline {
                 script {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
-                        credentialsId: 'aws-crendentails-vgs' // Replace with your Jenkins AWS credentials ID
+                        credentialsId: 'aws-crendentails-girish' // Replace with your Jenkins AWS credentials ID
                     ]]) {
                         
                         // Set KUBECONFIG environment variable
