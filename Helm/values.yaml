@@ -2,7 +2,7 @@
 #namespace: devops
 replicaCount: 2
 image:
-  repository: 149536470392.dkr.ecr.us-east-2.amazonaws.com/application/repo:v4
+  repository: 149536470392.dkr.ecr.us-east-2.amazonaws.com/application/repo
   tag: latest
 containerPort: 80
 # service.yaml
